@@ -18,9 +18,11 @@ Your tasks are to build bigram and unigram models of English and French, to smoo
 using add-? discounting, to build a world-alignment model between English and French using the IBM-1
 model, and to use these models to translate French sentences into English with a decoder that we provide.
 The programming language for this assignment is Matlab.
-2
-Background
-Canadian Hansard data
+
+# 2 Background
+
+## Canadian Hansard data
+
 The main corpus for this assignment comes from the official records (Hansards) of the 36 th Canadian
 Parliament, including debates from both the House of Representatives and the Senate. This corpus is
 available at /u/cs401/A2 SMT/data/Hansard/ and has been split into Training/ and Testing/ directories.
