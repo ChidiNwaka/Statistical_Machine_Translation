@@ -1,18 +1,17 @@
 # csc401A2
 
-This is the second assignment for 401. Thanks. 
-
-
 Computer Science 401
 St. George Campus
 13 February 2017
 University of Toronto
-Homework Assignment #2
+
+# Homework Assignment #2
+
 Due: Friday, 10 March 2017 at 19h00 (7 PM),
 Statistical Machine Translation
 TA: Mohamed Abdalla (mohamed.abdalla@mail.utoronto.ca); Hamed Heydari (h.heydari@mail.utoronto.ca)
-1
-Introduction
+
+# 1 Introduction
 This assignment will give you experience in working with n-gram models, smoothing, and statistical ma-
 chine translation through word alignment. Knowledge of French is not required.
 Your tasks are to build bigram and unigram models of English and French, to smooth their probabilities
@@ -219,11 +218,11 @@ with the decode2 function and evaluate them using corresponding reference senten
 1. /u/cs401/A2 SMT/data/Hansard/Testing/Task5.e, from the Hansards.
 2. /u/cs401/A2 SMT/data/Hansard/Testing/Task5.google.e, Google?s translations of the French phrases 2 .
 To evaluate each translation, use the BLEU score from lecture 6-2, i.e.,
-BLEU = BP C × (p 1 p 2 . . . p n ) (1/n)
+BLEU = BP C Ã— (p 1 p 2 . . . p n ) (1/n)
 (3)
 Repeat this task with at least four alignment models (trained on 1K, 10K, 15K, and 30K sentences,
 respectively) and with three values of n in the BLEU score (i.e., n = 1, 2, 3). You should therefore have
-25 × 4 × 3 BLEU scores in your evaluation. Write a short subjective analysis of how the different references
+25 Ã— 4 Ã— 3 BLEU scores in your evaluation. Write a short subjective analysis of how the different references
 differ from each other, and whether using more than 2 of them might be better (or worse).
 In all cases, you can use the MLE language model (i.e., specify lmtype = ??). Optionally, you can try
 additional alignment models, smoothed language model with varying ?, or other test data from other files
