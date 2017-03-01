@@ -6,3 +6,4 @@ To run Matlab from the command line, use: matlab -r preprocess.m
 
 You are meant to use the strsplit function found at  u/cs401/A2_SMT/code/strsplit.m
 
+This line was written from my Mac.
