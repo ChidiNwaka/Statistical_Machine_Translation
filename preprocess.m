@@ -17,7 +17,8 @@ function outSentence = preprocess( inSentence, language )
 %
 %  Template (c) 2011 Frank Rudzicz 
 
-  global CSC401_A2_DEFNS
+% global CSC401_A2_DEFNS 
+  global CSC401_A2_DEFNS %= './helloWorld.e'
   
   % first, convert the input sentence to lower-case and add sentence marks 
   inSentence = [CSC401_A2_DEFNS.SENTSTART ' ' lower( inSentence ) ' ' CSC401_A2_DEFNS.SENTEND];
@@ -27,7 +28,7 @@ function outSentence = preprocess( inSentence, language )
 
   % initialize outSentence
   outSentence = inSentence;
-
+%   disp(outSentence)
   % perform language-agnostic changes
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
@@ -35,12 +36,13 @@ function outSentence = preprocess( inSentence, language )
   switch language
    case 'e'
     % TODO: your code here
-
+    
    case 'f'
     % TODO: your code here
 
   end
 
   % change unpleasant characters to codes that can be keys in dictionaries
+  
   outSentence = convertSymbols( outSentence );
 
