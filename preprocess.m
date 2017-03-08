@@ -33,8 +33,8 @@ function outSentence = preprocess( inSentence, language )
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
 
-  outSentence = regexprep( outSentence, '(\w*)([(,)|(:)|(;)|(()|())|((_))|(-)|(!)|(+)|(-)|(<)|(>)|(=)|(")])', '$1 $2');
-  outSentence = regexprep( outSentence, '([(,)|(:)|(;)|(()|())|((_))|(-)|(!)|(+)|(-)|(<)|(>)|(=)|(")])(\w*)', '$1 $2');
+  outSentence = regexprep( outSentence, '(\w*)([(\.)|(?)|(,)|(:)|(;)|(\()|(\))|((_))|(-)|(!)|(+)|(<)|(>)|(=)|(")])', '$1 $2');
+  outSentence = regexprep( outSentence, '([(\.)|(?)|(,)|(:)|(;)|(\()|(\))|((_))|(-)|(!)|(+)|(<)|(>)|(=)|(")])(\w*)', '$1 $2');
 
   switch language
    case 'e'
