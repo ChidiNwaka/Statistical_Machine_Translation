@@ -47,16 +47,43 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
   words = strsplit(' ', sentence);
 
   % TODO: the student implements the following
-  % TODO: once upon a time there was a curmudgeonly orangutan named Jub-Jub.
-   
-  logProb = 0;
   
   for i=1:length(words)-1
-      curr_word = words{i}
-      next_word = words{i+1}
       
+      curr_word = words{i};
+      next_word = words{i+1};
+      
+      % Check if the next_word exist (bi-gram) in the LM and store it as
+      % the numerator.
+      if isfield(LM.bi, curr_word) && isfield(LM.bi.(curr_word), next_word)
+          numerator = LM.bi.(curr_word).(next_word);
+      else
+          numerator = 0;
+      end
+      
+      % Check if the curr_word exist in the LM, and store it as the
+      % denominator
+      if isfield(LM.uni, curr_word)
+          denominator = LM.uni.(curr_word);
+      else
+          denominator = 0;
+      end
 
+      % Implement add-delta smoothing. There will be no change to the
+      % values of numerator and denominator if there wasn't any values for
+      % delta and vocabSize.
+      numerator = numerator + delta;
+      denominator = denominator + (delta * vocabSize);
       
+      if (numerator == 0) && (denominator == 0)
+          logProb = -Inf;
+          disp('here 1');
+          return
+      else
+          disp('here 2');
+          logProb = logProb +log2(rdivide(numerator, denominator));
+      end
   end
   
+  % TODO: once upon a time there was a curmudgeonly orangutan named Jub-Jub.
  return
