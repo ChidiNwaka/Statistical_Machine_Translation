@@ -50,41 +50,44 @@ for iFile=1:length(DD)
         % TODO: THE STUDENT IMPLEMENTS THE FOLLOWING
         
         % Loop over each word in the sentence and compute it.
-        for i=1:length(words)-1
+        for i=1:length(words)
             
             curr_word = words{i};
             
-            % Handle unigram counts.
-            if isfield(LM.uni, curr_word)
-                %If it currently exists in the unigram, increment it by 1.
-                LM.uni.(curr_word) = LM.uni.(curr_word) + 1;
-            else
-                % Add it to the unigram and set its value to 1.
-                LM.uni.(curr_word) = 1;
-            end
+            if ~isempty(curr_word)
+
             
-            % This handles bigram counts.
-            if ~(i == 1) % do not include the first word in the sentence
-                % since there isn't any word preceeding it.
-                
-                prev_word = words{i-1};
-                
-                if isfield(LM.bi, prev_word) % Check if previous word exist in the bigram.
-                    if isfield(LM.bi.(prev_word), curr_word)
-                        % If there currently exist this particular bigram, increment by 1.
-                        LM.bi.(prev_word).(curr_word) = LM.bi.(prev_word).(curr_word) + 1;
-                    else    % add curr_word to form a new bigram.
+                % Handle unigram counts.
+                if isfield(LM.uni, curr_word)
+                    %If it currently exists in the unigram, increment it by 1.
+                    LM.uni.(curr_word) = LM.uni.(curr_word) + 1;
+                else
+                    % Add it to the unigram and set its value to 1.
+                    LM.uni.(curr_word) = 1;
+                end
+
+                % This handles bigram counts.
+                if ~(i == 1) % do not include the first word in the sentence
+                    % since there isn't any word preceeding it.
+
+                    prev_word = words{i-1};
+
+                    if isfield(LM.bi, prev_word) % Check if previous word exist in the bigram.
+                        if isfield(LM.bi.(prev_word), curr_word)
+                            % If there currently exist this particular bigram, increment by 1.
+                            LM.bi.(prev_word).(curr_word) = LM.bi.(prev_word).(curr_word) + 1;
+                        else    % add curr_word to form a new bigram.
+                            LM.bi.(prev_word).(curr_word) = 1;
+                        end
+                    else
+                        % If prev_word doesn't even exist, create it and add the
+                        % new bigram.
+                        LM.bi.(prev_word) = struct();
                         LM.bi.(prev_word).(curr_word) = 1;
                     end
-                else
-                    % If prev_word doesn't even exist, create it and add the
-                    % new bigram.
-                    LM.bi.(prev_word) = struct();
-                    LM.bi.(prev_word).(curr_word) = 1;
+
                 end
-                
             end
-            
             
         end
         
