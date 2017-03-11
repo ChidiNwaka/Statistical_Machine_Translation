@@ -1,0 +1,13 @@
+delta | English Perplexity | French Perplexity
+ 0.01 |      42.6975       |    43.4515
+ 0.25 |      79.9131       |    92.8852
+ 0.50 |      102.0306      |    122.5042
+ 0.75 |      120.0131      |    146.9334
+ 1.00 |      135.8321      |    168.6325
+
+
+The English perplexity with MLE = 13.5377
+The French perplexity with MLE = 12.5275
+
+
+Perplexity is often used for measuring the usefulness of a language model. Perplexity measures how confused the model is in choosing a certain number of possibilities for each word. The lower the perplexity equals the better the model. We see that as our value delta increases to 1, the perplexity in both English and French increase.
