@@ -48,6 +48,8 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
 
   % TODO: the student implements the following
   
+  logProb = 0;
+    
   for i=1:length(words)-1
       
       curr_word = words{i};
@@ -77,10 +79,8 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
       
       if (numerator == 0) && (denominator == 0)
           logProb = -Inf;
-          disp('here 1');
           return
       else
-          disp('here 2');
           logProb = logProb +log2(rdivide(numerator, denominator));
       end
   end
