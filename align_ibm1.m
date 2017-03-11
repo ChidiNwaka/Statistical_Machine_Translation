@@ -1,4 +1,4 @@
-function AM = align_ibm1(trainDir, numlines, maxIter, fn_AM)
+function AM = align_ibm1(trainDir, numSentences, maxIter, fn_AM)
 %
 %  align_ibm1
 % 
@@ -34,7 +34,7 @@ function AM = align_ibm1(trainDir, numlines, maxIter, fn_AM)
   AM = struct();
   
   % Read in the training data
-  [eng, fre] = read_hansard(trainDir, numlines);
+  [eng, fre] = read_hansard(trainDir, numSentences);
   
   % Initialize AM uniformly
   AM = initialize(eng, fre);
@@ -189,7 +189,6 @@ function t = em_step(t, eng, fre)
           % Step 1
           sum_a_prob = 0;
           for j=1:length(english_line)
-              % FcountF??
               sum_a_prob = sum_a_prob + t.(english_line{j}).(french_line{i});
           end
           
