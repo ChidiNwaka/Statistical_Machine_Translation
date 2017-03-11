@@ -164,6 +164,7 @@ function t = em_step(t, eng, fre)
   french_words = {};
   
   for i=1:length(english_words)
+      
       cur_english_word = english_words{i};
       french_words = [french_words; fieldnames(t.(cur_english_word))];
   end
@@ -179,24 +180,22 @@ function t = em_step(t, eng, fre)
   total.SENTEND = 0;
   
   for line_index=1:length(eng)
+      
       english_line = eng{line_index}(2:length(eng{line_index})-1);
       french_line = fre{line_index}(2:length(fre{line_index})-1);
       
-      % handle unique is
-      
       for i=1:length(french_line)
           
-          % Step 1
           sum_a_prob = 0;
           for j=1:length(english_line)
               sum_a_prob = sum_a_prob + t.(english_line{j}).(french_line{i});
           end
           
           for j=1:length(english_line)
+              
               a_prob = t.(english_line{j}).(french_line{i});
               partial_tcount = rdivide(a_prob, sum_a_prob);
               
-              % add struct fields if they do not already exist
               if ~isfield(tcount, french_line{i})
                   tcount.(french_line{i}) = struct(); 
               end
@@ -207,7 +206,6 @@ function t = em_step(t, eng, fre)
               
               tcount.(french_line{i}).(english_line{j}) = tcount.(french_line{i}).(english_line{j}) + partial_tcount;
               
-              % initialize total field if non-existent
               if ~isfield(total, english_line{j})
                   total.(english_line{j}) = 0;
               end
@@ -222,18 +220,17 @@ function t = em_step(t, eng, fre)
   end
   
   for i=1:length(english_words)
-      english_i = english_words{i};
-      french_pairs = fieldnames(t.(english_i));
+      english_word = english_words{i};
+      corresponding_french_words = fieldnames(t.(english_word));
       
-      for j=1:length(french_pairs)
-          french_i = french_pairs{j};
+      for j=1:length(corresponding_french_words)
           
-          current_a_prob = tcount.(french_i).(english_i);
-          disp(total);
-          current_total = total.(english_i);
-          disp(current_total);
+          french_word = corresponding_french_words{j};
+          
+          current_a_prob = tcount.(french_word).(english_word); 
+          current_total = total.(english_word); 
           updated_a_prob = rdivide(current_a_prob, current_total);
-          t.(english_i).(french_i) = updated_a_prob;
+          t.(english_word).(french_word) = updated_a_prob;
       end
   end
   

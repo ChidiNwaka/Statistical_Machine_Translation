@@ -1,4 +1,4 @@
-function AM = align_ibm1(trainDir, numlines, maxIter, fn_AM)
+function AM = align_ibm1(trainDir, numSentences, maxIter, fn_AM)
 %
 %  align_ibm1
 % 
@@ -34,7 +34,7 @@ function AM = align_ibm1(trainDir, numlines, maxIter, fn_AM)
   AM = struct();
   
   % Read in the training data
-  [eng, fre] = read_hansard(trainDir, numlines);
+  [eng, fre] = read_hansard(trainDir, numSentences);
   
   % Initialize AM uniformly
   AM = initialize(eng, fre);
@@ -157,11 +157,16 @@ function t = em_step(t, eng, fre)
   
   % TODO: your code goes here
   
+  %Get all english words 
   english_words = fieldnames(t);
+  
+  %Get all french words 
   french_words = {};
   
   for i=1:length(english_words)
-      french_words = [french_words; fieldnames(t.(english_words{i}))];
+      
+      cur_english_word = english_words{i};
+      french_words = [french_words; fieldnames(t.(cur_english_word))];
   end
   
   % initialize tcount
@@ -175,35 +180,32 @@ function t = em_step(t, eng, fre)
   total.SENTEND = 0;
   
   for line_index=1:length(eng)
+      
       english_line = eng{line_index}(2:length(eng{line_index})-1);
       french_line = fre{line_index}(2:length(fre{line_index})-1);
       
-      % handle unique is
-      
       for i=1:length(french_line)
           
-          % Step 1
-          sum_alignment_probability = 0;
+          sum_a_prob = 0;
           for j=1:length(english_line)
-              % FcountF??
-              sum_alignment_probability = sum_alignment_probability + t.(english_line{j}).(french_line{i});
+              sum_a_prob = sum_a_prob + t.(english_line{j}).(french_line{i});
           end
           
           for j=1:length(english_line)
-              alignment_probability = t.(english_line{j}).(french_line{i});
-              partial_tcount = rdivide(alignment_probability, sum_alignment_probability);
               
-              % add struct fields if they do not already exist
+              a_prob = t.(english_line{j}).(french_line{i});
+              partial_tcount = rdivide(a_prob, sum_a_prob);
+              
               if ~isfield(tcount, french_line{i})
                   tcount.(french_line{i}) = struct(); 
               end
+              
               if ~isfield(tcount.(french_line{i}), english_line{j})
                   tcount.(french_line{i}).(english_line{j}) = 0;
               end
               
               tcount.(french_line{i}).(english_line{j}) = tcount.(french_line{i}).(english_line{j}) + partial_tcount;
               
-              % initialize total field if non-existent
               if ~isfield(total, english_line{j})
                   total.(english_line{j}) = 0;
               end
@@ -218,18 +220,17 @@ function t = em_step(t, eng, fre)
   end
   
   for i=1:length(english_words)
-      english_i = english_words{i};
-      french_pairs = fieldnames(t.(english_i));
+      english_word = english_words{i};
+      corresponding_french_words = fieldnames(t.(english_word));
       
-      for j=1:length(french_pairs)
-          french_i = french_pairs{j};
+      for j=1:length(corresponding_french_words)
           
-          current_alignment_probability = tcount.(french_i).(english_i);
-          disp(total);
-          current_total = total.(english_i);
-          disp(current_total);
-          updated_alignment_probability = rdivide(current_alignment_probability, current_total);
-          t.(english_i).(french_i) = updated_alignment_probability;
+          french_word = corresponding_french_words{j};
+          
+          current_a_prob = tcount.(french_word).(english_word); 
+          current_total = total.(english_word); 
+          updated_a_prob = rdivide(current_a_prob, current_total);
+          t.(english_word).(french_word) = updated_a_prob;
       end
   end
   
