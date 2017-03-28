@@ -13,6 +13,6 @@
     implement the BLEU-metric algorithm to measure the performance of our
     translation algorithm.
 
-Developed by: [Chidi Nwaka](https://www.linkedin.com/in/chidi-nwaka/)
+- Developed by: [Chidi Nwaka](https://www.linkedin.com/in/chidi-nwaka/)
 
 - Refer to [handout.pdf](https://github.com/ChidiNwaka/Statistical_Machine_Translation/blob/master/handout.pdf) for a more detailed explanation of this projects tasks.
