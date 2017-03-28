@@ -10,4 +10,8 @@ The English perplexity with MLE = 13.5377
 The French perplexity with MLE = 12.5275
 
 
-Perplexity is often used for measuring the usefulness of a language model. Perplexity measures how confused the model is in choosing a certain number of possibilities for each word. The lower the perplexity equals the better the model. We see that as our value delta increases to 1, the perplexity in both English and French increase.
+Perplexity is often used for measuring the usefulness of a language model. 
+Perplexity measures how confused the model is in choosing a certain number 
+of possibilities for each word. The lower the perplexity equals the better
+the model. We see that as our value delta increases to 1, the perplexity in
+both English and French increase.
